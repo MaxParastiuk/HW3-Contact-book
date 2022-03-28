@@ -2,6 +2,7 @@ import { Component } from "react";
 import PhoneListItem from "./PhoneListItem";
 import "./ContactList.css";
 import Form from "./Form";
+import { API_URL } from "../constants";
 
 export default class ConatactList extends Component {
 	constructor(props) {
@@ -56,13 +57,13 @@ export default class ConatactList extends Component {
 	}
 
 	componentDidMount() {
-		fetch("https://612687da3ab4100017a68fd8.mockapi.io/contacts")
+		fetch(API_URL)
 			.then((resp) => resp.json())
 			.then((data) => this.setState({ phoneList: data }));
 	}
 
 	onDeleteButtonClick(id) {
-		fetch("https://612687da3ab4100017a68fd8.mockapi.io/contacts" + "/" + id, {
+		fetch(API_URL + "/" + id, {
 			method: "DELETE",
 		});
 		const newList = this.state.phoneList.filter((data) => data.id !== id);
@@ -84,7 +85,7 @@ export default class ConatactList extends Component {
 			sername: this.state.sername,
 			phone: this.state.phone,
 		};
-		fetch("https://612687da3ab4100017a68fd8.mockapi.io/contacts", {
+		fetch(API_URL, {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify(newItem),
